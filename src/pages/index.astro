@@ -1,30 +1,15 @@
 ---
 /**
- * Root entry for GitHub Pages. Astro.redirect() on static output emits a
- * 2-second meta-refresh interstitial. Emit an immediate hop instead.
+ * GitHub Pages entry. Serve the default-locale homepage here so the root URL
+ * never hits a meta-refresh interstitial (Astro static redirects flash for ~2s,
+ * and even a 0-delay hop can linger in browser/CDN cache).
  */
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const target = `${base}/zh/`;
-const canonical = new URL(target, Astro.site).href;
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import HomeScroll from "@/components/HomeScroll.astro";
+
+const locale = "zh" as const;
 ---
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="robots" content="noindex" />
-    <meta http-equiv="refresh" content={`0;url=${target}`} />
-    <link rel="canonical" href={canonical} />
-    <title>身接体受</title>
-    <script is:inline define:vars={{ target }}>
-      location.replace(target);
-    </script>
-    <style>
-      html,
-      body {
-        margin: 0;
-        background: #f7f3ea;
-      }
-    </style>
-  </head>
-  <body></body>
-</html>
+
+<BaseLayout locale={locale} pageKey="home">
+  <HomeScroll locale={locale} />
+</BaseLayout>

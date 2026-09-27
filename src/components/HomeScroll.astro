@@ -357,7 +357,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     font-weight: 500;
     line-height: 1.35;
     color: var(--color-ink);
-    white-space: nowrap;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .support,
@@ -368,6 +370,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     font-size: clamp(1rem, 2.1vw, 1.15rem);
     line-height: 1.75;
     color: rgba(31, 36, 31, 0.86);
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-break: loose;
   }
 
   .scroll-hint {
@@ -384,11 +390,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     font-family: var(--font-display);
     font-size: clamp(1.35rem, 2.6vw, 2rem);
     font-weight: 500;
-    line-height: 1.25;
+    line-height: 1.35;
     color: var(--color-ink);
-    white-space: nowrap;
-    width: max-content;
+    white-space: pre-line;
+    width: auto;
     max-width: 100%;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .lead {
@@ -397,6 +405,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   .place-body {
     white-space: pre-line;
+    overflow-wrap: anywhere;
   }
 
   .beat-inner ul {
@@ -473,10 +482,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     .char {
       font-size: clamp(2.4rem, 12vw, 3.5rem);
     }
+    .beat-inner {
+      padding: 1.5rem 1.1rem;
+      width: min(56rem, 94vw);
+    }
     .beat-inner h2,
     .headline {
-      white-space: normal;
-      width: auto;
+      font-size: clamp(1.2rem, 5.6vw, 1.7rem);
+    }
+    .support,
+    .beat-inner p,
+    .beat-inner li {
+      font-size: clamp(0.95rem, 3.8vw, 1.05rem);
     }
     .work-preview {
       inset: 16% 4% 28%;

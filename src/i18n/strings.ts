@@ -53,8 +53,8 @@ export const zh: Strings = {
   },
   langSwitch: "EN",
   home: {
-    headline: "在艺术与自然中，重新学会接收",
-    support: "以“接收”为内核的户外疗愈艺术展。向外看作品，也向内看自己。",
+    headline: "在艺术与自然中，\n重新学会接收",
+    support: "以“接收”为内核的户外疗愈艺术展。\n向外看作品，也向内看自己。",
     scrollHint: "向下滑动，走进接收",
     artistsCta: "认识艺术家",
     galleryCta: "进入展览画廊",
@@ -62,34 +62,34 @@ export const zh: Strings = {
   beats: {
     arrive: {
       title: "先停一停",
-      body: "在进入森林之前，先在树下静坐片刻。打开感官，听一听、看一看，准备好接收来自作品、自然和自己的讯息。",
+      body: "在进入森林之前，先在树下静坐片刻。\n打开感官，听一听、看一看，\n准备好接收来自作品、自然和自己的讯息。",
     },
     receive: {
-      title: "不勉强疗愈，只邀请联结",
-      body: "身接体受是一场以接收为内核的户外疗愈艺术展。艺术家、策展人与观展者共同完成这场共创。生命的意义从不被强行塑造，只在接纳与联结中自然生发。",
+      title: "不勉强疗愈，\n只邀请联结",
+      body: "身接体受是一场以接收为内核的户外疗愈艺术展。\n艺术家、策展人与观展者共同完成这场共创。\n生命的意义从不被强行塑造，只在接纳与联结中自然生发。",
     },
     walk: {
       title: "沿小路慢慢走",
-      body: "用眼睛观看的同时，感受脚下的土地与穿行的风。遇到让你停下的作品，先用直觉感受，再慢慢留意身体、情绪与念头。",
+      body: "用眼睛观看的同时，感受脚下的土地与穿行的风。\n遇到让你停下的作品，先用直觉感受，\n再慢慢留意身体、情绪与念头。",
     },
     respond: {
-      title: "让回应成为展览的一部分",
-      body: "在悬挂的卷轴前，你可以用红线连接你看见的关系。离开前，留下书写或照片卡回应。你的接收，也进入这场共创。",
+      title: "让回应成为\n展览的一部分",
+      body: "在悬挂的卷轴前，你可以用红线连接你看见的关系。\n离开前，留下书写或照片卡回应。\n你的接收，也进入这场共创。",
     },
     visiting: {
       title: "观展须知",
-      lead: "跟随直觉与好奇心。没有必须完成的环节。",
+      lead: "跟随直觉与好奇心。\n没有必须完成的环节。",
       points: [
         "穿着防滑户外鞋履，准备防晒、防蚊与防雨。",
         "沿既定林径行走，不要攀爬树木或拉扯展品绳索。",
         "所有互动自愿；感到不适可随时暂停或离开。",
         "未成年人须由监护人全程陪同。",
       ],
-      legalNote: "报名与免责声明文本仍为草案，须经安大略省律师审核后方可正式使用。展览为艺术体验，非医疗或心理治疗。",
+      legalNote: "报名与免责声明文本仍为草案，须经安大略省律师审核后方可正式使用。\n展览为艺术体验，非医疗或心理治疗。",
     },
     place: {
       title: "多伦多森林场",
-      body: "地点参考：里士满山 Hillsview Dr 天文台林地。\n请以当日报名通知与现场指引为准。",
+      body: "列治文山大卫·邓拉普天文台公园\n123 Hillsview Dr, Richmond Hill, ON L4C 1T3\n请以当日报名通知与现场指引为准。",
     },
   },
   gallery: {
@@ -154,7 +154,7 @@ export const en: Strings = {
     },
     place: {
       title: "Toronto Forest Edition",
-      body: "Location reference: forest grounds near the observatory on Hillsview Dr, Richmond Hill.\nFollow registration updates and on-site guidance for the active edition.",
+      body: "David Dunlap Observatory Park, Richmond Hill\n123 Hillsview Dr, Richmond Hill, ON L4C 1T3\nFollow registration updates and on-site guidance for the active edition.",
     },
   },
   gallery: {
