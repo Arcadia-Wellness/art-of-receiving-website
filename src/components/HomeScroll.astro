@@ -102,7 +102,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <section class="beat" id="place" data-stage="place">
       <div class="beat-inner paper-panel">
         <h2>{s.beats.place.title}</h2>
-        <p>{s.beats.place.body}</p>
+        <p class="place-body">{s.beats.place.body}</p>
         <div class="cta-row">
           <a class="artists-cta" href={localePath(locale, "exhibition")}>{s.home.galleryCta}</a>
           <a class="artists-cta artists-cta-ghost" href={localePath(locale, "artists")}>{s.home.artistsCta}</a>
@@ -393,6 +393,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   .lead {
     color: var(--color-moss-800) !important;
+  }
+
+  .place-body {
+    white-space: pre-line;
   }
 
   .beat-inner ul {

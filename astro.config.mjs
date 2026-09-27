@@ -15,6 +15,8 @@ export default defineConfig({
     locales: ["zh", "en"],
     routing: {
       prefixDefaultLocale: true,
+      // Keep root under our control: Astro's auto 302 emits a 2s meta-refresh on Pages.
+      redirectToDefaultLocale: false,
     },
   },
   integrations: [

@@ -89,7 +89,7 @@ export const zh: Strings = {
     },
     place: {
       title: "多伦多森林场",
-      body: "地点参考：里士满山 Hillsview Dr 天文台林地。请以当日报名通知与现场指引为准。",
+      body: "地点参考：里士满山 Hillsview Dr 天文台林地。\n请以当日报名通知与现场指引为准。",
     },
   },
   gallery: {
@@ -154,7 +154,7 @@ export const en: Strings = {
     },
     place: {
       title: "Toronto Forest Edition",
-      body: "Location reference: forest grounds near the observatory on Hillsview Dr, Richmond Hill. Follow registration updates and on-site guidance for the active edition.",
+      body: "Location reference: forest grounds near the observatory on Hillsview Dr, Richmond Hill.\nFollow registration updates and on-site guidance for the active edition.",
     },
   },
   gallery: {
