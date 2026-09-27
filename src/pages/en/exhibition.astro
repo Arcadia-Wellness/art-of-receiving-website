@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import GalleryPage from "@/components/GalleryPage.astro";
+import { getStrings } from "@/i18n/strings";
+
+const locale = "en" as const;
+const s = getStrings(locale);
+---
+
+<BaseLayout locale={locale} title={s.gallery.title} description={s.gallery.lead} pageKey="exhibition">
+  <GalleryPage locale={locale} />
+</BaseLayout>

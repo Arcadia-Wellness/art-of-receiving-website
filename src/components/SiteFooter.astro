@@ -1,0 +1,17 @@
+---
+import { getStrings, type Locale } from "@/i18n/strings";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const s = getStrings(locale);
+---
+
+<footer class="relative z-10 border-t border-[rgba(90,70,40,0.12)] px-5 py-10 text-sm text-moss-800 md:px-8">
+  <div class="mx-auto max-w-6xl text-center md:text-left">
+    <p class="font-display text-base text-ink">{s.brandZh} / {s.brandEn}</p>
+    <p class="mt-2 max-w-2xl leading-relaxed md:mx-0 mx-auto">{s.footer}</p>
+  </div>
+</footer>

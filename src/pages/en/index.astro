@@ -1,0 +1,10 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import HomeScroll from "@/components/HomeScroll.astro";
+
+const locale = "en" as const;
+---
+
+<BaseLayout locale={locale} pageKey="home">
+  <HomeScroll locale={locale} />
+</BaseLayout>

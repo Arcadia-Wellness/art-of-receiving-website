@@ -1,0 +1,587 @@
+---
+import { getStrings, type Locale } from "@/i18n/strings";
+import { assetUrl, localePath } from "@/lib/paths";
+import { scrollWorkByStage, works } from "@/data/gallery";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const s = getStrings(locale);
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div
+  class="poster-scroll"
+  data-poster-scroll
+  data-work-map={JSON.stringify(scrollWorkByStage)}
+>
+  <div class="poster-stage" aria-hidden="true">
+    <div class="layer layer-void"></div>
+    <img class="layer layer-moon" src={`${base}/brand/moon.png`} alt="" data-layer="moon" />
+    <img class="layer layer-tree" src={`${base}/brand/tree.png`} alt="" data-layer="tree" />
+    <img class="layer layer-person" src={`${base}/brand/person.png`} alt="" data-layer="person" />
+    <img class="layer layer-map" src={`${base}/brand/map.png`} alt="" data-layer="map" />
+
+    <div class="work-preview" data-work-preview>
+      {
+        works.map((work) => (
+          <figure class="work-frame" data-work-id={work.id}>
+            <img src={assetUrl(work.image)} alt="" />
+            <figcaption class="work-caption font-heiti">{work.title[locale]}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <div class="layer layer-veil" data-layer="veil"></div>
+
+    <div class="char-orbit" data-char-orbit>
+      <div class="char-box" data-char-box>
+        <!-- Poster corners: 身 TL, 接 TR, 体 BL, 受 BR -->
+        <span class="char font-heiti" data-char="0">身</span>
+        <span class="char font-heiti" data-char="1">接</span>
+        <span class="char font-heiti" data-char="2">体</span>
+        <span class="char font-heiti" data-char="3">受</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-rail">
+    <section class="beat beat-hero" id="top" data-stage="hero">
+      <div class="beat-inner hero-inner paper-panel">
+        <p class="brand-mark font-heiti">{s.brandZh}</p>
+        <p class="brand-sub">{s.brandEn}</p>
+        <h1 class="headline">{s.home.headline}</h1>
+        <p class="support">{s.home.support}</p>
+        <p class="scroll-hint">{s.home.scrollHint}</p>
+      </div>
+    </section>
+
+    <section class="beat" id="arrive" data-stage="arrive">
+      <div class="beat-inner paper-panel">
+        <h2>{s.beats.arrive.title}</h2>
+        <p>{s.beats.arrive.body}</p>
+      </div>
+    </section>
+
+    <section class="beat" id="receive" data-stage="receive">
+      <div class="beat-inner paper-panel">
+        <h2>{s.beats.receive.title}</h2>
+        <p>{s.beats.receive.body}</p>
+        <a class="artists-cta" href={localePath(locale, "exhibition")}>{s.home.galleryCta}</a>
+      </div>
+    </section>
+
+    <section class="beat" id="walk" data-stage="walk">
+      <div class="beat-inner paper-panel">
+        <h2>{s.beats.walk.title}</h2>
+        <p>{s.beats.walk.body}</p>
+      </div>
+    </section>
+
+    <section class="beat" id="respond" data-stage="respond">
+      <div class="beat-inner paper-panel">
+        <h2>{s.beats.respond.title}</h2>
+        <p>{s.beats.respond.body}</p>
+      </div>
+    </section>
+
+    <section class="beat" id="visiting" data-stage="visiting">
+      <div class="beat-inner paper-panel">
+        <h2>{s.beats.visiting.title}</h2>
+        <p class="lead">{s.beats.visiting.lead}</p>
+        <ul>
+          {s.beats.visiting.points.map((point) => <li>{point}</li>)}
+        </ul>
+        <p class="legal">{s.beats.visiting.legalNote}</p>
+      </div>
+    </section>
+
+    <section class="beat" id="place" data-stage="place">
+      <div class="beat-inner paper-panel">
+        <h2>{s.beats.place.title}</h2>
+        <p>{s.beats.place.body}</p>
+        <div class="cta-row">
+          <a class="artists-cta" href={localePath(locale, "exhibition")}>{s.home.galleryCta}</a>
+          <a class="artists-cta artists-cta-ghost" href={localePath(locale, "artists")}>{s.home.artistsCta}</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<style>
+  .poster-scroll {
+    position: relative;
+    color: var(--color-ink);
+  }
+
+  .poster-stage {
+    position: sticky;
+    top: var(--nav-h);
+    height: calc(100svh - var(--nav-h));
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    transform: translate3d(0, 8%, 0) scale(1.04);
+    transition:
+      opacity 900ms ease,
+      transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 900ms ease;
+    will-change: opacity, transform;
+  }
+
+  .layer-void {
+    background:
+      radial-gradient(ellipse at 50% 42%, rgba(176, 138, 69, 0.1), transparent 52%),
+      radial-gradient(ellipse at 70% 60%, rgba(90, 110, 95, 0.08), transparent 48%),
+      transparent;
+    opacity: 1;
+    transform: none;
+  }
+
+  .layer-veil {
+    background: linear-gradient(
+      180deg,
+      rgba(247, 243, 234, 0.12) 0%,
+      rgba(247, 243, 234, 0.28) 48%,
+      rgba(247, 243, 234, 0.55) 100%
+    );
+    opacity: 0.9;
+    transform: none;
+  }
+
+  .layer-moon,
+  .layer-tree,
+  .layer-person {
+    filter: contrast(1.04) saturate(1.02);
+  }
+
+  .layer-map {
+    mix-blend-mode: multiply;
+    object-fit: contain;
+    object-position: center 58%;
+    padding: 10vh 8vw 16vh;
+    opacity: 0;
+  }
+
+  .layer-moon {
+    object-position: 18% 12%;
+    transform: translate3d(-4%, -6%, 0) scale(0.92);
+  }
+
+  .layer-tree {
+    object-position: 62% 45%;
+    transform: translate3d(6%, 4%, 0) scale(1.08);
+  }
+
+  .layer-person {
+    object-position: 28% 55%;
+    transform: translate3d(-8%, 10%, 0) scale(1.05);
+  }
+
+  .work-preview {
+    position: absolute;
+    inset: 12% 8% 18%;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+  }
+
+  .work-frame {
+    margin: 0;
+    width: min(28rem, 70vw);
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(18px) scale(0.96);
+    transition:
+      opacity 700ms ease,
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .work-frame.is-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .work-frame img {
+    width: 100%;
+    max-height: 48vh;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 40px rgba(40, 30, 20, 0.18));
+  }
+
+  .work-caption {
+    margin-top: 0.75rem;
+    text-align: center;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    letter-spacing: 0.08em;
+    color: var(--color-moss-800);
+  }
+
+  .char-orbit {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    display: grid;
+    place-items: center;
+  }
+
+  .char-box {
+    position: relative;
+    width: min(58rem, 94vw);
+    height: min(30rem, 62vh);
+  }
+
+  .char {
+    position: absolute;
+    font-size: clamp(3.25rem, 9vw, 6.5rem);
+    line-height: 1;
+    color: var(--color-poster-teal);
+    letter-spacing: 0.02em;
+    transform: translate(-50%, -50%);
+    will-change: left, top;
+  }
+
+  .poster-scroll[data-active="hero"] .layer-tree,
+  .poster-scroll[data-active="hero"] .layer-person {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  .poster-scroll[data-active="arrive"] .layer-tree,
+  .poster-scroll[data-active="arrive"] .layer-moon {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  .poster-scroll[data-active="arrive"] .layer-person {
+    opacity: 0.35;
+  }
+
+  .poster-scroll[data-active="receive"] .layer-moon {
+    opacity: 0.85;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  .poster-scroll[data-active="receive"] .layer-tree {
+    opacity: 0.22;
+  }
+
+  .poster-scroll[data-active="walk"] .layer-tree,
+  .poster-scroll[data-active="walk"] .layer-person {
+    opacity: 0.55;
+    transform: translate3d(0, 0, 0) scale(1.02);
+  }
+
+  .poster-scroll[data-active="respond"] .layer-person {
+    opacity: 0.45;
+  }
+  .poster-scroll[data-active="respond"] .layer-moon {
+    opacity: 0.4;
+  }
+
+  .poster-scroll[data-active="visiting"] .layer-moon {
+    opacity: 0.55;
+  }
+  .poster-scroll[data-active="visiting"] .layer-tree {
+    opacity: 0.2;
+  }
+
+  .poster-scroll[data-active="place"] .layer-map {
+    opacity: 0.95;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  .poster-scroll[data-active="place"] .layer-moon {
+    opacity: 0.25;
+  }
+  .poster-scroll[data-active="place"] .layer-veil {
+    opacity: 0.4;
+  }
+
+  .poster-scroll[data-active="place"] .work-preview {
+    opacity: 0;
+  }
+
+  .text-rail {
+    position: relative;
+    z-index: 5;
+    margin-top: calc(-100svh + var(--nav-h));
+  }
+
+  .beat {
+    min-height: calc(100svh - var(--nav-h));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12vh 1.25rem;
+    scroll-margin-top: calc(var(--nav-h) + 0.75rem);
+  }
+
+  .beat-inner {
+    width: min(56rem, 96vw);
+    text-align: center;
+    padding: 2.25rem 2rem;
+  }
+
+  .brand-mark {
+    margin: 0;
+    font-size: clamp(2.8rem, 9vw, 5.2rem);
+    letter-spacing: 0.12em;
+    line-height: 1;
+    color: var(--color-poster-teal);
+  }
+
+  .brand-sub {
+    margin: 0.85rem 0 0;
+    font-size: 0.8rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-moss-700);
+  }
+
+  .headline {
+    margin: 1.75rem 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 3.2vw, 2.1rem);
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+
+  .support,
+  .beat-inner p,
+  .beat-inner li {
+    margin: 1rem auto 0;
+    max-width: 42rem;
+    font-size: clamp(1rem, 2.1vw, 1.15rem);
+    line-height: 1.75;
+    color: rgba(31, 36, 31, 0.86);
+  }
+
+  .scroll-hint {
+    margin-top: 2.25rem !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(90, 111, 96, 0.8) !important;
+    animation: hint-pulse 2.4s ease-in-out infinite;
+  }
+
+  .beat-inner h2 {
+    margin: 0 auto;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.6vw, 2rem);
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--color-ink);
+    white-space: nowrap;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .lead {
+    color: var(--color-moss-800) !important;
+  }
+
+  .beat-inner ul {
+    margin: 1.25rem auto 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+    max-width: 38rem;
+  }
+
+  .beat-inner li {
+    margin-top: 0.75rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid rgba(111, 148, 120, 0.75);
+  }
+
+  .legal {
+    margin-top: 1.5rem !important;
+    font-size: 0.85rem !important;
+    color: rgba(31, 36, 31, 0.62) !important;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .artists-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.7rem 1.25rem;
+    background: var(--color-moss-900);
+    color: var(--color-ivory);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: background 200ms ease;
+  }
+
+  .cta-row .artists-cta {
+    margin-top: 0;
+  }
+
+  .artists-cta-ghost {
+    background: transparent;
+    color: var(--color-moss-900);
+    border: 1px solid rgba(42, 54, 46, 0.35);
+  }
+
+  .artists-cta:hover {
+    background: var(--color-ink);
+  }
+
+  .artists-cta-ghost:hover {
+    background: rgba(42, 54, 46, 0.08);
+  }
+
+  @keyframes hint-pulse {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(4px);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .char {
+      font-size: clamp(2.4rem, 12vw, 3.5rem);
+    }
+    .beat-inner h2,
+    .headline {
+      white-space: normal;
+      width: auto;
+    }
+    .work-preview {
+      inset: 16% 4% 28%;
+    }
+  }
+</style>
+
+<script>
+  function pointOnBox(t, width, height) {
+    const peri = 2 * (width + height);
+    let d = ((t % 1) + 1) % 1 * peri;
+    if (d <= width) return { x: d, y: 0 };
+    d -= width;
+    if (d <= height) return { x: width, y: d };
+    d -= height;
+    if (d <= width) return { x: width - d, y: height };
+    d -= width;
+    return { x: 0, y: height - d };
+  }
+
+  function initPosterScroll() {
+    const root = document.querySelector("[data-poster-scroll]");
+    if (!(root instanceof HTMLElement)) return;
+    if (root.dataset.orbitReady === "1") return;
+    root.dataset.orbitReady = "1";
+
+    const beats = Array.from(root.querySelectorAll(".beat[data-stage]"));
+    const box = root.querySelector("[data-char-box]");
+    const chars = Array.from(root.querySelectorAll("[data-char]"));
+    const frames = Array.from(root.querySelectorAll("[data-work-id]"));
+    let workMap = {};
+    try {
+      workMap = JSON.parse(root.dataset.workMap || "{}");
+    } catch {
+      workMap = {};
+    }
+
+    if (!beats.length || !(box instanceof HTMLElement) || !chars.length) return;
+
+    const setWork = (stage) => {
+      const workId = workMap[stage];
+      frames.forEach((frame) => {
+        if (!(frame instanceof HTMLElement)) return;
+        const active = Boolean(workId) && frame.dataset.workId === workId && stage !== "place";
+        frame.classList.toggle("is-active", active);
+      });
+    };
+
+    const setStage = (stage) => {
+      root.dataset.active = stage;
+      setWork(stage);
+    };
+
+    setStage("hero");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const stage = visible.target.dataset.stage;
+        if (stage) setStage(stage);
+      },
+      {
+        root: null,
+        threshold: [0.35, 0.55, 0.7],
+        rootMargin: "-10% 0px -20% 0px",
+      },
+    );
+
+    beats.forEach((beat) => observer.observe(beat));
+
+    let ticking = false;
+
+    const updateOrbit = () => {
+      ticking = false;
+      const rect = root.getBoundingClientRect();
+      const travel = Math.max(1, root.offsetHeight - window.innerHeight);
+      const scrolled = Math.min(travel, Math.max(0, -rect.top));
+      const turn = scrolled / travel;
+
+      const width = box.clientWidth;
+      const height = box.clientHeight;
+      const peri = 2 * (width + height);
+      // Poster placement 身 TL, 接 TR, 体 BL, 受 BR
+      const starts = [0, width, 2 * width + height, width + height].map((d) => d / peri);
+
+      chars.forEach((el) => {
+        if (!(el instanceof HTMLElement)) return;
+        const index = Number(el.dataset.char || 0);
+        const t = starts[index] + turn;
+        const { x, y } = pointOnBox(t, width, height);
+        el.style.left = `${x}px`;
+        el.style.top = `${y}px`;
+      });
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateOrbit);
+    };
+
+    updateOrbit();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+  }
+
+  initPosterScroll();
+  document.addEventListener("astro:page-load", initPosterScroll);
+</script>

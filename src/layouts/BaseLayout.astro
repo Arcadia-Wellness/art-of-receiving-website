@@ -1,0 +1,44 @@
+---
+import "@/styles/global.css";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+import { getStrings, type Locale } from "@/i18n/strings";
+import type { PageKey } from "@/lib/paths";
+
+interface Props {
+  locale: Locale;
+  title?: string;
+  description?: string;
+  pageKey: PageKey;
+}
+
+const { locale, title = "", description, pageKey } = Astro.props;
+const s = getStrings(locale);
+const pageTitle = title
+  ? `${title} · ${s.brandZh}`
+  : `${s.brandZh} / ${s.brandEn}`;
+const desc = description ?? s.tagline;
+---
+
+<!doctype html>
+<html lang={locale === "zh" ? "zh-CN" : "en-CA"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={desc} />
+    <title>{pageTitle}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen text-ink antialiased">
+    <SiteHeader locale={locale} pageKey={pageKey} />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter locale={locale} />
+  </body>
+</html>

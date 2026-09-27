@@ -1,0 +1,43 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getStrings } from "@/i18n/strings";
+import { artists } from "@/data/gallery";
+import { assetUrl, localePath } from "@/lib/paths";
+
+const locale = "zh" as const;
+const s = getStrings(locale);
+---
+
+<BaseLayout locale={locale} title={s.artists.title} description={s.artists.lead} pageKey="artists">
+  <section class="px-5 pb-16 pt-10 md:px-8">
+    <div class="mx-auto max-w-5xl">
+      <header class="paper-panel mx-auto max-w-3xl px-6 py-8 text-center md:px-10">
+        <h1 class="font-heiti text-4xl tracking-wide text-ink md:text-5xl">{s.artists.title}</h1>
+        <p class="mt-4 text-lg text-moss-800">{s.artists.lead}</p>
+      </header>
+      <div class="mt-10 grid gap-8 sm:grid-cols-2">
+        {
+          artists.map((artist) => (
+            <article class="paper-panel flex gap-4 overflow-hidden p-4 md:p-5">
+              <img
+                src={assetUrl(artist.photo)}
+                alt={artist.name.zh}
+                class="h-28 w-28 shrink-0 object-cover md:h-36 md:w-36"
+                loading="lazy"
+              />
+              <div>
+                <h2 class="font-heiti text-xl tracking-wide text-ink">{artist.name.zh}</h2>
+                <p class="mt-1 text-sm text-moss-700">{artist.role.zh}</p>
+                <p class="mt-2 text-sm leading-relaxed text-moss-800">{artist.bio.zh}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <p class="mt-10 text-center">
+        <a href={localePath(locale, "exhibition")} class="mr-6 text-sm text-moss-800 underline underline-offset-4">进入展览画廊</a>
+        <a href={localePath(locale, "home")} class="text-sm text-moss-800 underline underline-offset-4">返回首页</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,68 @@
+---
+import { getStrings, type Locale } from "@/i18n/strings";
+import { localePath, switchLocalePath, type PageKey } from "@/lib/paths";
+
+interface Props {
+  locale: Locale;
+  pageKey: PageKey;
+}
+
+const { locale, pageKey } = Astro.props;
+const s = getStrings(locale);
+---
+
+<header class="site-header sticky top-0 z-40 border-b border-[rgba(90,70,40,0.1)]">
+  <div class="mx-auto flex h-[var(--nav-h)] max-w-6xl items-center justify-between px-5 md:px-8">
+    <a href={localePath(locale, "home")} class="tracking-wide text-ink">
+      <span class="font-heiti block text-lg leading-none md:text-xl">{s.brandZh}</span>
+      <span class="mt-1 block text-[0.65rem] font-body uppercase tracking-[0.18em] text-moss-700 md:text-xs">
+        {s.brandEn}
+      </span>
+    </a>
+    <nav class="flex items-center gap-4 text-sm text-moss-800 md:gap-6">
+      <a
+        href={localePath(locale, "exhibition")}
+        class:list={[
+          "hidden sm:inline transition hover:text-ink",
+          pageKey === "exhibition" && "text-ink underline underline-offset-4",
+        ]}
+      >
+        {s.nav.exhibition}
+      </a>
+      <a
+        href={localePath(locale, "home", "visiting")}
+        class="hidden sm:inline transition hover:text-ink"
+      >
+        {s.nav.visiting}
+      </a>
+      <a
+        href={localePath(locale, "artists")}
+        class:list={[
+          "hidden sm:inline transition hover:text-ink",
+          pageKey === "artists" && "text-ink underline underline-offset-4",
+        ]}
+      >
+        {s.nav.artists}
+      </a>
+      <a
+        href={switchLocalePath(locale, pageKey)}
+        class="rounded-sm border border-[rgba(90,70,40,0.25)] px-2.5 py-1 text-xs tracking-wide transition hover:bg-[rgba(90,70,40,0.06)]"
+      >
+        {s.langSwitch}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background-color: rgba(247, 243, 234, 0.9);
+    background-image:
+      radial-gradient(rgba(70, 55, 35, 0.035) 0.55px, transparent 0.55px),
+      linear-gradient(90deg, rgba(95, 75, 45, 0.025) 1px, transparent 1px);
+    background-size:
+      3px 3px,
+      22px 22px;
+    backdrop-filter: blur(10px);
+  }
+</style>
